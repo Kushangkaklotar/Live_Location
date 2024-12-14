@@ -21,6 +21,7 @@
 		D87437FC2D05A6DB00D746F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87437ED2D05A6DB00D746F5 /* LaunchScreen.storyboard */; };
 		D893CF3F2D0D5D7000C3F4D2 /* Location.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D893CF3E2D0D5D7000C3F4D2 /* Location.storyboard */; };
 		D893CF412D0D5E1000C3F4D2 /* LocationScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893CF402D0D5E1000C3F4D2 /* LocationScreenViewController.swift */; };
+		D893CF4F2D0E08CA00C3F4D2 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893CF4E2D0E08CA00C3F4D2 /* HomeScreen.swift */; };
 		D9459B5C05B3F65570870678 /* Pods_LiveLocationTrack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AAE6DAD52DCE7C78FC7B24C /* Pods_LiveLocationTrack.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		D87437EE2D05A6DB00D746F5 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		D893CF3E2D0D5D7000C3F4D2 /* Location.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Location.storyboard; sourceTree = "<group>"; };
 		D893CF402D0D5E1000C3F4D2 /* LocationScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationScreenViewController.swift; sourceTree = "<group>"; };
+		D893CF4E2D0E08CA00C3F4D2 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -156,6 +158,7 @@
 			children = (
 				D893CF3E2D0D5D7000C3F4D2 /* Location.storyboard */,
 				D893CF402D0D5E1000C3F4D2 /* LocationScreenViewController.swift */,
+				D893CF4E2D0E08CA00C3F4D2 /* HomeScreen.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				D87437F42D05A6DB00D746F5 /* ResponseModel.swift in Sources */,
 				D893CF412D0D5E1000C3F4D2 /* LocationScreenViewController.swift in Sources */,
 				D87437F52D05A6DB00D746F5 /* ViewController.swift in Sources */,
+				D893CF4F2D0E08CA00C3F4D2 /* HomeScreen.swift in Sources */,
 				D87437F62D05A6DB00D746F5 /* AppDelegate.swift in Sources */,
 				D87437F72D05A6DB00D746F5 /* constant.swift in Sources */,
 				D87437F82D05A6DB00D746F5 /* Utility.swift in Sources */,

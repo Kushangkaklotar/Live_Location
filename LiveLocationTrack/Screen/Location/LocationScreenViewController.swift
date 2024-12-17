@@ -33,12 +33,14 @@ class LocationScreenViewController: UIViewController {
     var timer: Timer?
     var locationArray: [MapModel] = []
     var isUpdatelocation = false
+    var currentLocation: CLLocationCoordinate2D?
+    var DestinationLocation: CLLocationCoordinate2D?
     
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.locationArray.append(MapModel(id: 1, coordinate: CLLocationCoordinate2D(latitude: 21.1418, longitude: 72.7709), name: "Destination"))
-        self.locationArray.append(MapModel(id: 2, coordinate: CLLocationCoordinate2D(latitude: 21.2266, longitude: 72.8312), name: "Live location"))
+        self.locationArray.append(MapModel(id: 1, coordinate: CLLocationCoordinate2D(latitude: self.DestinationLocation?.latitude ?? 0.00, longitude: self.DestinationLocation?.longitude ?? 0.00), name: "Destination location"))
+        self.locationArray.append(MapModel(id: 2, coordinate: CLLocationCoordinate2D(latitude: self.currentLocation?.latitude ?? 0.00, longitude: self.currentLocation?.longitude ?? 0.00), name: "Current location"))
         self.addAnnotaion()
         self.mapView.delegate = self
     }

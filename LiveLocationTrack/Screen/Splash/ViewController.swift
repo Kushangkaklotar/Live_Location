@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             let storyboard = UIStoryboard(name: "Location", bundle: nil)
-            if let vc = storyboard.instantiateViewController(withIdentifier: "LocationScreenViewController") as? LocationScreenViewController {
+            if let vc = storyboard.instantiateViewController(withIdentifier: "HomeScreen") as? HomeScreen {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }

@@ -136,7 +136,23 @@ extension HomeScreen: MKMapViewDelegate {
         
         if annotation is MKUserLocation { return nil }
         if let annotation = annotation as? MapModel {
-            print("ID -> \(annotation.id ?? 0)")
+            var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: "id")
+            
+            if annotationView == nil {
+                annotationView?.canShowCallout = true
+                let pin = MKAnnotationView(annotation: annotation, reuseIdentifier: String(annotation.id ?? 0))
+                
+                let nameLabel = UILabel(frame: CGRect(x: 10, y: 3, width: 30, height: Int(30)))
+                nameLabel.text = nil
+                nameLabel.text = String(annotation.id ?? 10)
+                nameLabel.textAlignment = .center
+                nameLabel.textColor = UIColor.white
+                nameLabel.backgroundColor = UIColor.black
+                
+                pin.addSubview(nameLabel)
+                annotationView = pin
+                return annotationView
+            }
         }
         return nil
     }

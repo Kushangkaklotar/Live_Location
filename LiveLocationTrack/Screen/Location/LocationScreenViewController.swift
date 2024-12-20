@@ -96,7 +96,18 @@ extension LocationScreenViewController: MKMapViewDelegate{
         
         if annotation is MKUserLocation { return nil }
         if let annotation = annotation as? MapModel {
+            var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: String(annotation.id ?? 0))
+            let pin = MKAnnotationView(annotation: annotation, reuseIdentifier: String(annotation.id ?? 0))
+            let label = UILabel()
+            label.backgroundColor = .black
+            label.textColor = .white
+            label.text = annotation.name
             
+            pin.addSubview(label)
+            annotationView = pin
+            return annotationView
+//            backGroundView.frame.height
+//            backGroundView.frame.width = 20
         }
         return nil
     }

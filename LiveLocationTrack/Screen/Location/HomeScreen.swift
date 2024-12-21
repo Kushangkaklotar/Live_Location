@@ -149,7 +149,17 @@ extension HomeScreen: MKMapViewDelegate {
                 nameLabel.textColor = UIColor.white
                 nameLabel.backgroundColor = UIColor.black
                 
-                pin.addSubview(nameLabel)
+                let annotationImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+                annotationImage.image = UIImage(named: "map_annotaion_ic")
+                
+                let profileImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+                profileImage.layer.fillMode = .
+                profileImage.layer.cornerRadius = 15
+                profileImage.image = UIImage(named: "myIm")
+                
+                annotationImage.addSubview(profileImage)
+                pin.addSubview(annotationImage)
+                
                 annotationView = pin
                 return annotationView
             }

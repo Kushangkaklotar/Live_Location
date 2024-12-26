@@ -60,7 +60,7 @@ extension HomeScreen {
             }
         }
         for location in locationArray {
-            let pin = MapModel(id: location.id, coordinate: location.coordinate, name: location.name)
+            let pin = MapModel(id: location.id, coordinate: location.coordinate, name: location.name, type: location.type)
             self.mapView.addAnnotation(pin)
         }
         if self.locationArray.count == 1 {
@@ -85,11 +85,7 @@ extension HomeScreen {
             self.mapView.removeOverlays(self.mapView.overlays)
             if let route = unwrappedResponse.routes.first {
                 self.mapView.addOverlay(route.polyline)
-//                if self.isUpdatelocation == false {
-                    self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0), animated: true)
-//                }
-//                self.timer?.invalidate()
-//                self.timer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(updateLocation), userInfo: nil, repeats: true)
+                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0), animated: true)
             }
         }
     }
@@ -103,14 +99,9 @@ extension HomeScreen {
     @objc func getCoordinatePressOnMap(sender: UITapGestureRecognizer) {
         let touchLocation = sender.location(in: self.mapView)
         let locationCoordinate = self.mapView.convert(touchLocation, toCoordinateFrom: self.mapView)
-//        if let removeId = self.locationArray.first(where: {$0.id == 2})?.id {
         self.locationArray.removeAll(where: {$0.id == 2})
-        self.locationArray.append(MapModel(id: 2, coordinate: CLLocationCoordinate2D(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude), name: "Destination location"))
+        self.locationArray.append(MapModel(id: 2, coordinate: CLLocationCoordinate2D(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude), name: "Destination location", type: 1))
         self.addAnnotaion()
-//        }
-//        let liveLocationPin = MKPointAnnotation()
-//        liveLocationPin.coordinate = CLLocationCoordinate2D(latitude: locationCoordinate.latitude,longitude: locationCoordinate.longitude)
-//        self.mapView.addAnnotation(liveLocationPin)
     }
 }
 
@@ -122,7 +113,7 @@ extension HomeScreen: CLLocationManagerDelegate {
         let location = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         print("Current location >>>>>>>>>>>>>>> \(location.latitude), \(location.longitude)")
         self.locationArray.removeAll()
-        self.locationArray.append(MapModel(id: 1, coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), name: "Current location"))
+        self.locationArray.append(MapModel(id: 1, coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), name: "Current location", type: 2))
         self.addAnnotaion()
     }
     
@@ -136,28 +127,23 @@ extension HomeScreen: MKMapViewDelegate {
         
         if annotation is MKUserLocation { return nil }
         if let annotation = annotation as? MapModel {
-            var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: "id")
+            var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: String(annotation.id ?? 0))
             
             if annotationView == nil {
                 annotationView?.canShowCallout = true
                 let pin = MKAnnotationView(annotation: annotation, reuseIdentifier: String(annotation.id ?? 0))
                 
-                let nameLabel = UILabel(frame: CGRect(x: 10, y: 3, width: 30, height: Int(30)))
-                nameLabel.text = nil
-                nameLabel.text = String(annotation.id ?? 10)
-                nameLabel.textAlignment = .center
-                nameLabel.textColor = UIColor.white
-                nameLabel.backgroundColor = UIColor.black
-                
-                let annotationImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+                let annotationImage = UIImageView(frame: CGRect(x: -15, y: -15, width: 62, height: 62))
                 annotationImage.image = UIImage(named: "map_annotaion_ic")
                 
-                let profileImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
-//                profileImage.layer.fillMode = .
-                profileImage.layer.cornerRadius = 15
-                profileImage.image = UIImage(named: "myIm")
-                
-                annotationImage.addSubview(profileImage)
+                let customBackgroundView = UIView(frame: CGRect(x: 21, y: 17.5, width: 20, height: 20))
+                customBackgroundView.layer.cornerRadius = customBackgroundView.frame.height / 2
+                if annotation.type == 1 {
+                    customBackgroundView.backgroundColor = UIColor.red
+                } else if annotation.type == 2 {
+                    customBackgroundView.backgroundColor = UIColor.yellow
+                }
+                annotationImage.addSubview(customBackgroundView)
                 pin.addSubview(annotationImage)
                 
                 annotationView = pin

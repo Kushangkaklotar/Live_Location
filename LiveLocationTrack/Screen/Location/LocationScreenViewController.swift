@@ -104,10 +104,15 @@ extension LocationScreenViewController: MKMapViewDelegate{
             label.textColor = .white
             label.text = annotation.name
             
-            let annotationImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            annotationImage.image = UIImage(named: "map_annotaion_ic")
+            let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            backgroundView.layer.cornerRadius = backgroundView.frame.height / 2
+            backgroundView.backgroundColor = UIColor.red
             
-            pin.addSubview(annotationImage)
+//            let annotationImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+//            annotationImage.image = UIImage(named: "map_annotaion_ic")
+//            annotationImage.layer.cornerRadius = 25
+            
+            pin.addSubview(backgroundView)
             annotationView = pin
             return annotationView
 //            backGroundView.frame.height

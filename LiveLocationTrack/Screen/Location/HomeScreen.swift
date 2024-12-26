@@ -153,7 +153,7 @@ extension HomeScreen: MKMapViewDelegate {
                 annotationImage.image = UIImage(named: "map_annotaion_ic")
                 
                 let profileImage = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
-                profileImage.layer.fillMode = .
+//                profileImage.layer.fillMode = .
                 profileImage.layer.cornerRadius = 15
                 profileImage.image = UIImage(named: "myIm")
                 

@@ -66,7 +66,6 @@ extension HomeScreen {
         if self.locationArray.count == 1 {
             self.ZoomToLocation(location: self.locationArray.first(where: {$0.id == 1})?.coordinate ?? CLLocationCoordinate2D())
         } else if self.locationArray.count == 2 {
-            self.locationButton.isHidden = false
             self.showRouteOnMap(pickupCoordinate: self.locationArray.first(where: {$0.id == 1})?.coordinate ?? CLLocationCoordinate2D(), destinationCoordinate: self.locationArray.first(where: {$0.id == 2})?.coordinate ?? CLLocationCoordinate2D())
         }
     }
@@ -84,6 +83,7 @@ extension HomeScreen {
             guard let unwrappedResponse = response else { return }
             self.mapView.removeOverlays(self.mapView.overlays)
             if let route = unwrappedResponse.routes.first {
+                self.locationButton.isHidden = false
                 self.mapView.addOverlay(route.polyline)
                 self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0), animated: true)
             }
@@ -112,7 +112,7 @@ extension HomeScreen: CLLocationManagerDelegate {
         let userLocation :CLLocation = locations[0] as CLLocation
         let location = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         print("Current location >>>>>>>>>>>>>>> \(location.latitude), \(location.longitude)")
-        self.locationArray.removeAll()
+        self.locationArray.removeAll(where: {$0.id == 1})
         self.locationArray.append(MapModel(id: 1, coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), name: "Current location", type: 2))
         self.addAnnotaion()
     }
@@ -126,30 +126,31 @@ extension HomeScreen: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         if annotation is MKUserLocation { return nil }
-        if let annotation = annotation as? MapModel {
-            var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: String(annotation.id ?? 0))
-            
-            if annotationView == nil {
-                annotationView?.canShowCallout = true
-                let pin = MKAnnotationView(annotation: annotation, reuseIdentifier: String(annotation.id ?? 0))
-                
-                let annotationImage = UIImageView(frame: CGRect(x: -15, y: -15, width: 62, height: 62))
-                annotationImage.image = UIImage(named: "map_annotaion_ic")
-                
-                let customBackgroundView = UIView(frame: CGRect(x: 21, y: 17.5, width: 20, height: 20))
-                customBackgroundView.layer.cornerRadius = customBackgroundView.frame.height / 2
-                if annotation.type == 1 {
-                    customBackgroundView.backgroundColor = UIColor.red
-                } else if annotation.type == 2 {
-                    customBackgroundView.backgroundColor = UIColor.yellow
-                }
-                annotationImage.addSubview(customBackgroundView)
-                pin.addSubview(annotationImage)
-                
-                annotationView = pin
-                return annotationView
-            }
-        }
+//        if let annotation = annotation as? MapModel {
+//            var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: String(annotation.id ?? 0))
+//            
+//            if annotationView == nil {
+//                annotationView?.canShowCallout = true
+//                let pin = MKAnnotationView(annotation: annotation, reuseIdentifier: String(annotation.id ?? 0))
+//                
+//                let annotationImage = UIImageView(frame: CGRect(x: -15, y: -15, width: 62, height: 62))
+//                annotationImage.image = UIImage(named: "map_annotaion_ic")
+//                
+//                let customBackgroundView = UIView(frame: CGRect(x: 21, y: 17.5, width: 20, height: 20))
+//                customBackgroundView.layer.cornerRadius = customBackgroundView.frame.height / 2
+//                if annotation.type == 1 {
+//                    customBackgroundView.backgroundColor = UIColor.red
+//                } else if annotation.type == 2 {
+//                    customBackgroundView.backgroundColor = UIColor.green
+//                }
+//                
+//                annotationImage.addSubview(customBackgroundView)
+//                pin.addSubview(annotationImage)
+//                
+//                annotationView = pin
+//                return annotationView
+//            }
+//        }
         return nil
     }
     
